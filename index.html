@@ -68,6 +68,235 @@ URL: https://code.google.com/p/io-2012-slides
     </article>
   </slide>
 
+
+
+
+
+
+
+
+  <!-- Begin Brian's Slides -->
+
+  <slide>
+      <hgroup>
+          <h2>Developers, developers, developers!</h2>
+      </hgroup>
+      <article>
+          <iframe data-src="http://www.youtube.com/embed/8To-6VIJZRE?rel=0"></iframe>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>HTML5 Semantic Elements</h2>
+          <h3>Use HTML5 Shim or Modernizr to style these elements in IE < 9</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="html">
+&lt;header&gt;
+&lt;nav&gt;
+&lt;section&gt;
+&lt;article&gt;
+&lt;aside&gt;
+&lt;figcaption&gt;
+&lt;figure&gt;
+&lt;footer&gt;
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: Random Intro Image</h2>
+          <h3>header.php (conditional comments)</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="html">
+&lt;!--[if lt IE 7 ]&gt; &lt;html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7 ]&gt; &lt;html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8 ]&gt; &lt;html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 9 ]&gt; &lt;html class="ie ie9 ie-lt10 no-js" lang="en"&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 9]&gt;&lt;!--&gt;&lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
+&lt;!-- the "no-js" class is for Modernizr. --&gt;
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: Random Intro Image</h2>
+          <h3>style.css</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="css">
+#intro {
+    height: 405px;
+    background: no-repeat center center;
+    background-size: cover;
+}
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: Random Intro Image</h2>
+          <h3>front-page.php (jQuery)</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="javascript">
+&lt;script type="text/javascript"&gt;
+    /* Display random intro image on front page */
+    var introPhotoNum = Math.floor((Math.random()*4)+1); // Random number between 1 and 4
+
+    if (jQuery('html').hasClass('ie-lt9')) {
+        jQuery('.ie-lt9 #intro').css('background-image', "url('" + wp_urls.stylesheet_directory_uri + '/_/img/intro/ie/' + introPhotoNum + ".jpg')");
+    } else {
+        jQuery('#intro').css('background-image', "url('" + wp_urls.stylesheet_directory_uri + '/_/img/intro/' + introPhotoNum + ".jpg')");
+    }
+&lt;/script&gt;
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: Random Intro Image</h2>
+          <h3>header.php (noscript)</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="php">
+if (is_front_page()) {
+    $intro_photos_uri = get_stylesheet_directory_uri() . '/_/img/intro';
+    print &lt;&lt;&lt;NOSCRIPT
+        &lt;noscript&gt;
+            &lt;style type="text/css"&gt;
+                #intro {
+                    background-image: url('$intro_photos_uri/1.jpg');
+                }
+                .ie-lt9 #intro {
+                    background-image: url('$intro_photos_uri/ie/1.jpg');
+                }
+            &lt;/style&gt;
+        &lt;/noscript&gt;
+NOSCRIPT;
+}
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: &quot;Learn More&quot; Button</h2>
+          <h3>front-page.php</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="html">
+&lt;a href="http://wuphysicians.wustl.edu/dept.aspx?pageID=1&ID=162"
+    id="wuca-button" class="gradient"&gt;Learn More&lt;/a&gt;
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: &quot;Learn More&quot; Button</h2>
+          <h3>style.css</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="css">
+#wuca-button {
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 11px 56px;
+    margin-left: 33px;
+    border-radius: 5px;
+    white-space: nowrap;
+    position: relative;
+    top: -9px;
+
+    background: #707070; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzcwNzA3MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMzMzMzMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #707070 0%, #333333 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#707070), color-stop(100%,#333333)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #707070 0%,#333333 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #707070 0%,#333333 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #707070 0%,#333333 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #707070 0%,#333333 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#707070', endColorstr='#333333',GradientType=0 ); /* IE6-8 */
+}
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: &quot;Learn More&quot; Button</h2>
+          <h3>style.css</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="css">
+#wuca-button:hover {
+    background: #838383; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzgzODM4MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0MDQwNDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #838383 0%, #404040 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#838383), color-stop(100%,#404040)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #838383 0%,#404040 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #838383 0%,#404040 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #838383 0%,#404040 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #838383 0%,#404040 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#838383', endColorstr='#404040',GradientType=0 ); /* IE6-8 */
+}
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Example: &quot;Learn More&quot; Button</h2>
+          <h3>header.php (conditional comment)</h3>
+      </hgroup>
+      <article>
+        <pre class="prettyprint" data-lang="html">
+&lt;!--[if gte IE 9]&gt;
+    &lt;style type="text/css"&gt;
+        .gradient {
+            filter: none;
+        }
+    &lt;/style&gt;
+&lt;![endif]--&gt;
+        </pre>
+      </article>
+  </slide>
+
+  <slide>
+      <hgroup>
+          <h2>Resources</h2>
+      </hgroup>
+      <article>
+          <ul>
+              <li><a href="http://html5reset.org/">HTML5 Reset</a></li>
+              <li><a href="http://modernizr.com/">Modernizr</a></li>
+              <li><a href="http://www.colorzilla.com/gradient-editor/">ColorZilla Gradient Generator</a></li>
+              <li><a href="http://www.w3schools.com/">W3Schools</a></li>
+              <li><a href="http://jpanelmenu.com/">jPanelMenu</a></li>
+          </ul>
+      </article>
+  </slide>
+
+
+
+
+
+
+
+
+  <!-- Begin Sample Slides -->
+
   <slide>
     <hgroup>
       <h2>Slide with Bullets</h2>
