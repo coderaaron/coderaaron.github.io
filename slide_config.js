@@ -32,12 +32,6 @@ var SLIDE_CONFIG = {
     gplus: 'http://plus.google.com/106570290873071944913',
     twitter: '@b_marston',
     www: 'http://www.fatdays.com'
-  }, {
-    name: 'Joe McGill Name',
-    company: 'Web Graphic Designer, DCM',
-    gplus: 'http://plus.google.com/105503316962559527271',
-    twitter: '@joemcgill',
-    www: 'http://joemcgill.net/'
   }]
 };
 
