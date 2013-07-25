@@ -485,9 +485,19 @@ ul {
   margin-bottom: 1em;
   position: relative;
 }
+ul img {
+  vertical-align: middle;
+}
 /* line 300, ../scss/default.scss */
 ul li {
   margin-bottom: 0.5em;
+}
+ul.two-column li {
+  line-height: 64px;
+}
+ul.two-column li {
+  width:50%;
+  float: left;
 }
 /* line 303, ../scss/default.scss */
 ul li ul {
@@ -1237,7 +1247,15 @@ article.smaller q:before, article.smaller q:after {
 
 /* line 826, ../scss/default.scss */
 .thank-you-slide {
-  background: #4387fd !important;
+  background: #990000 !important;
+  background: url(data:image/svg+xml !important;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+) !important;
+  background: -moz-linear-gradient(top, #990000 0%, #720000 100%) !important;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#990000), color-stop(100%,#720000)) !important;
+  background: -webkit-linear-gradient(top, #990000 0%,#720000 100%) !important;
+  background: -o-linear-gradient(top, #990000 0%,#720000 100%) !important;
+  background: -ms-linear-gradient(top, #990000 0%,#720000 100%) !important;
+  background: linear-gradient(to bottom, #990000 0%,#720000 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#990000', endColorstr='#720000',GradientType=0 ) !important;
   color: white;
 }
 /* line 830, ../scss/default.scss */
@@ -1403,6 +1421,10 @@ aside.gdbar img {
 /* line 971, ../scss/default.scss */
 .overview .slide-area {
   display: none;
+}
+
+.italics {
+  font-style: italic;
 }
 
 @media print {
