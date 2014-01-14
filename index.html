@@ -1,535 +1,77 @@
-<!--
-Google IO 2012/2013 HTML5 Slide Template
-
-Authors: Eric Bidelman <ebidel@gmail.com>
-         Luke Mahé <lukem@google.com>
-
-URL: https://code.google.com/p/io-2012-slides
--->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title></title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-  <!--This one seems to work all the time, but really small on ipad-->
-  <!--<meta name="viewport" content="initial-scale=0.4">-->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" media="all" href="theme/css/default.css">
-  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
-</head>
-<body style="opacity: 0">
+<meta charset=utf-8>
+<meta name="viewport" content="width=620">
+<title>HTML5 Demo: geolocation</title>
+<link rel="stylesheet" href="css/html5demos.css">
+<script src="js/h5utils.js"></script></head>
+<body>
+<section id="wrapper">
+    <header>
+      <h1>geolocation</h1>
+    </header>
+<meta name="viewport" content="width=620" />
 
-<slides class="layout-widescreen">
-
-  <slide class="logoslide nobackground">
-    <article class="flexbox vcenter">
-      <span><img src="images/logo.png"></span>
-    </article>
-  </slide>
-
-  <slide class="title-slide segue nobackground">
-    <aside class="gdbar"><img src="images/shield.png"></aside>
-    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
-    <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
-      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
-      <p data-config-presenter><!-- populated from slide_config.json --></p>
-    </hgroup>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>What is HTML5?</h2>
-    </hgroup>
-    <article class="flexbox vcenter">
-      <img src="images/html5.jpg" alt="HTML5?" title="HTML5?">
-      <footer class="source">http://imgur.com/2Kq6Y</footer>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>What is HTML5?</h2>
-      <h3>That's not <span class="italics">entirely</span> accurate, according to <a href="http://www.caniuse.com">www.caniuse.com</a>...</h3>
-    </hgroup>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <article>
-       <p>IE6 fully supports the following:</p>
-      <ul class="build">
-        <li>contenteditable attribute</li>
-        <li>word-break (CSS)</li>
-        <li>text-overflow (CSS)</li>
-      </ul>
+      <p>Finding your location: <span id="status">checking...</span></p>
     </article>
-  </slide>
-
-  <slide>
-    <aside class="note">
-      <section>
-          3D - SVG, Canvas, WebGL<br>
-          Offline - App Cache, Local Storage, Index DB, file API<br>
-          Connectivity - Web Sockets<br>
-          Performance - Web Workers threaded process<br>
-          Device Access - geolocation, cameras, mics<br>
-          Semantics - no more self-closing tags<br>
-          Multimedia - no more flash audio/video<br>
-          CSS3 - rounded corners, shadows, gradients, transitions<br>
-      </section>
-    </aside>
-    <article>
-      <h2>What is HTML5?</h2>
-      <h3>HTML5 is...</h3>
-      <ul class="build fade two-column graphics">
-        <li><img src="images/HTML5_3D_Effects_64.png">3D Effects</li>
-        <li><img src="images/HTML5_Offline_Storage_64.png">Offline storage</li>
-        <li><img src="images/HTML5_Connectivity_64.png">Connectivity</li>
-        <li><img src="images/HTML5_Performance_64.png">Performance</li>
-        <li><img src="images/HTML5_Device_Access_64.png">Device Access</li>
-        <li><img src="images/HTML5_Semantics_64.png">Semantics</li>
-        <li><img src="images/HTML5_Multimedia_64.png">Multimedia</li>
-        <li><img src="images/HTML5_Styling_64.png">CSS3</li>
-      </ul>
-    </article>
-  </slide>
-
-
-
-
-
-
-
-  <!-- Begin Brian's Slides -->
-  <slide class="segue dark nobackground">
-    <aside class="gdbar"><img src="images/shield.png"></aside>
-    <hgroup class="auto-fadein">
-      <h2>Brian Marston</h2>
-    </hgroup>
-  </slide>
-
-
-  <slide>
-      <hgroup>
-          <h2>Developers, developers, developers!</h2>
-      </hgroup>
-      <article>
-          <iframe data-src="http://www.youtube.com/embed/8To-6VIJZRE?rel=0"></iframe>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>HTML5 Semantic Elements</h2>
-          <h3>Use HTML5 Shim or Modernizr to style these elements in IE < 9</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="html">
-&lt;header&gt;
-&lt;nav&gt;
-&lt;section&gt;
-&lt;article&gt;
-&lt;aside&gt;
-&lt;figcaption&gt;
-&lt;figure&gt;
-&lt;footer&gt;
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: Random Intro Image</h2>
-          <h3>header.php (conditional comments)</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="html">
-&lt;!--[if lt IE 7 ]&gt; &lt;html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"&gt; &lt;![endif]--&gt;
-&lt;!--[if IE 7 ]&gt; &lt;html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"&gt; &lt;![endif]--&gt;
-&lt;!--[if IE 8 ]&gt; &lt;html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"&gt; &lt;![endif]--&gt;
-&lt;!--[if IE 9 ]&gt; &lt;html class="ie ie9 ie-lt10 no-js" lang="en"&gt; &lt;![endif]--&gt;
-&lt;!--[if gt IE 9]&gt;&lt;!--&gt;&lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
-&lt;!-- the "no-js" class is for Modernizr. --&gt;
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: Random Intro Image</h2>
-          <h3>style.css</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="css">
-#intro {
-    height: 405px;
-    background: no-repeat center center;
-    background-size: cover;
-}
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: Random Intro Image</h2>
-          <h3>front-page.php (jQuery)</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="javascript">
-&lt;script type="text/javascript"&gt;
-    /* Display random intro image on front page */
-    var introPhotoNum = Math.floor((Math.random()*4)+1); // Random number between 1 and 4
-
-    if (jQuery('html').hasClass('ie-lt9')) {
-        jQuery('.ie-lt9 #intro').css('background-image', "url('" + wp_urls.stylesheet_directory_uri + '/_/img/intro/ie/' + introPhotoNum + ".jpg')");
-    } else {
-        jQuery('#intro').css('background-image', "url('" + wp_urls.stylesheet_directory_uri + '/_/img/intro/' + introPhotoNum + ".jpg')");
-    }
-&lt;/script&gt;
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: Random Intro Image</h2>
-          <h3>header.php (noscript)</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="php">
-if (is_front_page()) {
-    $intro_photos_uri = get_stylesheet_directory_uri() . '/_/img/intro';
-    print &lt;&lt;&lt;NOSCRIPT
-        &lt;noscript&gt;
-            &lt;style type="text/css"&gt;
-                #intro {
-                    background-image: url('$intro_photos_uri/1.jpg');
-                }
-                .ie-lt9 #intro {
-                    background-image: url('$intro_photos_uri/ie/1.jpg');
-                }
-            &lt;/style&gt;
-        &lt;/noscript&gt;
-NOSCRIPT;
-}
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: &quot;Learn More&quot; Button</h2>
-          <h3>front-page.php</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="html">
-&lt;a href="http://wuphysicians.wustl.edu/dept.aspx?pageID=1&ID=162"
-    id="wuca-button" class="gradient"&gt;Learn More&lt;/a&gt;
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: &quot;Learn More&quot; Button</h2>
-          <h3>style.css</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="css">
-#wuca-button {
-    font-weight: 600;
-    color: #fff;
-    display: inline-block;
-    text-transform: uppercase;
-    padding: 11px 56px;
-    margin-left: 33px;
-    border-radius: 5px;
-    white-space: nowrap;
-    position: relative;
-    top: -9px;
-
-    background: #707070; /* Old browsers */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzcwNzA3MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMzMzMzMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top,  #707070 0%, #333333 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#707070), color-stop(100%,#333333)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #707070 0%,#333333 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #707070 0%,#333333 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #707070 0%,#333333 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #707070 0%,#333333 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#707070', endColorstr='#333333',GradientType=0 ); /* IE6-8 */
-}
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: &quot;Learn More&quot; Button</h2>
-          <h3>style.css</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="css">
-#wuca-button:hover {
-    background: #838383; /* Old browsers */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzgzODM4MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0MDQwNDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top,  #838383 0%, #404040 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#838383), color-stop(100%,#404040)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #838383 0%,#404040 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #838383 0%,#404040 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #838383 0%,#404040 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #838383 0%,#404040 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#838383', endColorstr='#404040',GradientType=0 ); /* IE6-8 */
-}
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: &quot;Learn More&quot; Button</h2>
-          <h3>header.php (conditional comment)</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="html">
-&lt;!--[if gte IE 9]&gt;
-    &lt;style type="text/css"&gt;
-        .gradient {
-            filter: none;
-        }
-    &lt;/style&gt;
-&lt;![endif]--&gt;
-        </pre>
-      </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Resources</h2>
-      </hgroup>
-      <article>
-          <ul>
-              <li><a href="http://html5reset.org/">HTML5 Reset</a></li>
-              <li><a href="http://modernizr.com/">Modernizr</a></li>
-              <li><a href="http://www.colorzilla.com/gradient-editor/">ColorZilla Gradient Generator</a></li>
-              <li><a href="http://www.w3schools.com/">W3Schools</a></li>
-              <li><a href="http://jpanelmenu.com/">jPanelMenu</a></li>
-          </ul>
-      </article>
-  </slide>
-
-
-
-
-  <!-- Begin Aaron's Slides -->
-  <slide class="segue dark nobackground">
-    <aside class="gdbar"><img src="images/shield.png"></aside>
-    <hgroup class="auto-fadein">
-      <h2>Aaron Graham</h2>
-    </hgroup>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>What to do with IE?</h2>
-    </hgroup>
-    <article class="flexbox vcenter">
-      <img src="images/browsers.jpg" alt="Broswers!" title="Browsers!">
-    </article>
-  </slide>
-
-    <slide>
-    <hgroup>
-      <h2>What to do with IE?</h2>
-      <h3>Our biggest 'customer' by far</h3>
-    </hgroup>
-    <article>
-      <table>
-        <tr>
-          <th></th><th>Med School</th><th>Main WWW</th>
-        </tr>
-        <tr>
-          <td>IE</td><td>225,498</td><td>1,135,083</td>
-        </tr>
-        <tr>
-          <td>Safari</td><td>55,193</td><td>565,944</td>
-          </tr>
-        <tr>
-          <td>Chrome</td><td>59,362</td><td>509,825</td>
-          </tr>
-        <tr>
-          <td>Firefox</td><td>95,525</td><td>440,873</td>
-          </tr>
-      </table>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>What to do with IE?</h2>
-      <h3>Our biggest 'customer' by far</h3>
-    </hgroup>
-    <article>
-      <table>
-        <tr>
-          <th></th><th>Med School</th><th>Main WWW</th>
-        </tr>
-        <tr>
-          <td>IE 6 (2001)</td><td>1,135</td><td>3,358</td>
-        </tr>
-        <tr>
-          <td>IE 7 (2006)</td><td>35,336</td><td>168,881</td>
-          </tr>
-        <tr>
-          <td>IE 8 (2009)</td><td class="build highlight">154,786</td><td class="build highlight">672,798</td>
-          </tr>
-        <tr>
-          <td>IE 9 (2011)</td><td>25,602</td><td>228,833</td>
-          </tr>
-        <tr>
-          <td>IE 10 (2012)</td><td>8,633</td><td>61,154</td>
-          </tr>
-      </table>
-    </article>
-  </slide>
-  
-  <slide>
-      <aside class="note">
-      <section>
-          html5shiv-prior to IE9, html5 tags rendered as empty elements<br>
-          -prefix-free --- Selectivizr-:last-child,etc<br>
-          Flexie-adds Flexbox<br>
-          CSS3 PIE-Progressive IE,border-radius &amp; box-shadow IE8 and below<br>
-          JSON 2 --- es5-shim-ECMAScript for IE8<br>
-          FlashCanvas (or explorer canvas)<br>
-          MediaElement.js<br>
-          Webshims Lib or Modernizr
-        
-      </section>
-    </aside>
-    <hgroup>
-      <h2>What to do with IE?</h2>
-      <h3>POLYFILLS!</h3>
-    </hgroup>
-    <article>
-      <ul class="build fade two-column graphics">
-        <li>html5shiv</li>
-        <li>-prefix-free</li>
-        <li>Selectivizr</li>
-        <li>Flexie</li>
-        <li>CSS3 PIE</li>
-        <li>JSON 2</li>
-        <li>es5-shim</li>
-        <li>FlashCanvas (or Excanvas)</li>
-        <li>MediaElement.js</li>
-        <li>Webshims Lib or Modernizr</li>
-      </ul>
-    </article>
-  </slide>
-
-  <slide>
-    <article>
-      <iframe data-src="http://www.html5please.com"></iframe>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>CSS3 PIE &amp; Selectivizr</h2>
-    </hgroup>
-    <article>
-      <iframe data-src="http://pacs.wustl.edu"></iframe>
-    </article>
-  </slide>
-
-  <slide>
-      <hgroup>
-          <h2>Example: &quot;Learn More&quot; Button</h2>
-          <h3>style.css</h3>
-      </hgroup>
-      <article>
-        <pre class="prettyprint" data-lang="css">
-#wusm-utility-bar {
-  float: right;
-  margin: 0 10px 0 0;
-  width: 300px;
-  color: #666;
-  background-color: #fafafa;
-  border: 1px solid #eee;
-  -webkit-border-radius: 0 0 7px 7px;
-  -moz-border-radius: 0 0 7px 7px;
-  border-radius: 0 0 7px 7px;
-  behavior: url(/wp-content/themes/pacs/inc/PIE.php);
-}
-      </pre>
-    </article>
-  </slide>
-
-
-  <slide>
-      <hgroup>
-          <h2>More Resources</h2>
-      </hgroup>
-      <article>
-          <ul>
-              <li><a href="http://www.html5rocks.com/en/">HTML5 Rocks</a> - www.html5rocks.com/en/</li>
-              <li><a href="http://html5please.com/">HTML5 Please</a> - html5please.com/</li>
-              <li><a href="http://caniuse.com/">Can I use</a> - caniuse.com/</li>
-              <li><a href="http://www.paulirish.com/">Paul Irish</a> - www.paulirish.com/</li>
-          </ul>
-      </article>
-  </slide>
-
-  <slide class="segue dark nobackground">
-    <aside class="gdbar"><img src="images/shield.png"></aside>
-    <hgroup class="auto-fadein">
-      <h2>Questions?</h2>
-    </hgroup>
-  </slide>
-
-  <slide class="thank-you-slide segue nobackground">
-    <aside class="gdbar right"><img src="images/shield.png"></aside>
-    <article class="flexbox vleft auto-fadein">
-      <h2>Thank You!</h2>
-    </article>
-    <p class="auto-fadein" data-config-contact>
-      <!-- populated from slide_config.json -->
-    </p>
-  </slide>
-
-  <slide class="logoslide dark nobackground">
-    <article class="flexbox vcenter">
-      <span><img src="images/logo_white.png"></span>
-    </article>
-  </slide>
-
-  <slide class="backdrop"></slide>
-
-  <!-- Begin Sample Slides -->
-
-  
-
-</slides>
-
 <script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
-_gaq.push(['_trackPageview']);
+function success(position) {
+  var s = document.querySelector('#status');
+  
+  if (s.className == 'success') {
+    // not sure why we're hitting this twice in FF, I think it's to do with a cached result coming back    
+    return;
+  }
+  
+  s.innerHTML = "found you!";
+  s.className = 'success';
+  
+  var mapcanvas = document.createElement('div');
+  mapcanvas.id = 'mapcanvas';
+  mapcanvas.style.height = '400px';
+  mapcanvas.style.width = '560px';
+    
+  document.querySelector('article').appendChild(mapcanvas);
+  
+  var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  console.log(position.coords.latitude + ", " + position.coords.longitude)
+  var myOptions = {
+    zoom: 15,
+    center: latlng,
+    mapTypeControl: false,
+    navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+  
+  var marker = new google.maps.Marker({
+      position: latlng, 
+      map: map, 
+      title:"You are here! (at least within a "+position.coords.accuracy+" meter radius)"
+  });
+}
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
+function error(msg) {
+  var s = document.querySelector('#status');
+  s.innerHTML = typeof msg == 'string' ? msg : "failed";
+  s.className = 'fail';
+  
+  // console.log(arguments);
+}
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(success, error);
+} else {
+  error('not supported');
+}
+
 </script>
 
-<!--[if IE]>
-  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
-  <script>CFInstall.check({mode: 'overlay'});</script>
-<![endif]-->
+    
+</section>
+
 </body>
 </html>
